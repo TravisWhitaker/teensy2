@@ -1,32 +1,44 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-#include <util/delay.h>
+//DELAY IS SHIT. USE NOPS.
+
+void zero()
+{
+	PORTD |= (1<<0);
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop");
+	PORTD &= ~(1<<0);
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
+}
+
+void one()
+{
+	PORTD |= (1<<0);
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
+	PORTD &= ~(1<<0);
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop");
+}
 
 int main()
 {
 	CLKPR = 0x80;
-	CLKPR = 0x00;
-	DDRD |= 0x40;
-	DDRB |= 0x01;
-	int d = 0;
-	int j = 0;
-	int jinc = 4;
+	CLKPR = 0x01; //8 Mhz, 125 nanoseconds per cycle, 8 cycles per microsecond
+	DDRD |= (1<<6);
+	PORTD |= (1<<6);
+	DDRD |= (1<<0);
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
+	zero();zero();zero();zero();zero();one();zero();one();
+	zero();zero();zero();zero();zero();zero();zero();zero();
+	zero();zero();zero();zero();zero();zero();one();zero();
+	DDRD &= ~(1<<0);
 	while(1)
 	{
-		d += 1;
-		j += jinc;
-		if(d == 1000)
+		if(PIND & (1<<0));
+		else
 		{
-			d = 0;
+			DDRD |= (1<<0);
+			zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();
+			DDRD &= ~(1<<0);
 		}
-		if(j == 4000 || j == 0)
-		{
-			jinc = -jinc;
-		}
-		PORTB |= 0x01; PORTD |= (1<<6);
-		_delay_us(d+j);
-		PORTB &= ~0x01; PORTD &= ~(1<<6);
-		_delay_us(d);
 	}
 	return 0;
 }

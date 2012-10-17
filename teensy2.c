@@ -1,3 +1,7 @@
+//It's dangerous to go alone, take these:
+//http://www.larsivar.com/cp/comments.php?y=11&m=09&entry=entry110905-190247
+//http://code.google.com/p/micro-64-controller/wiki/Mini64Controller
+
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 //DELAY IS SHIT. USE NOPS.

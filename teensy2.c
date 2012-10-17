@@ -10,7 +10,7 @@ int main()
 	DDRB |= 0x01;
 	int d = 0;
 	int j = 0;
-	int jinc = 3;
+	int jinc = 4;
 	while(1)
 	{
 		d += 1;
@@ -19,7 +19,7 @@ int main()
 		{
 			d = 0;
 		}
-		if(j == 3000 || j == 0)
+		if(j == 4000 || j == 0)
 		{
 			jinc = -jinc;
 		}

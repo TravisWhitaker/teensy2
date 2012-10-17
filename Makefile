@@ -1,20 +1,3 @@
-# Hey Emacs, this is a -*- makefile -*-
-#----------------------------------------------------------------------------
-# WinAVR Makefile Template written by Eric B. Weddington, Jörg Wunsch, et al.
-#
-# Released to the Public Domain
-#
-# Additional material for this makefile was written by:
-# Peter Fleury
-# Tim Henigan
-# Colin O'Flynn
-# Reiner Patommel
-# Markus Pfaff
-# Sander Pool
-# Frederik Rouleau
-# Carlos Lamas
-#
-#----------------------------------------------------------------------------
 # On command line:
 #
 # make all = Make software.
@@ -37,12 +20,9 @@
 #                   bug reports to the GCC project.
 #
 # To rebuild project do "make clean" then "make all".
-#----------------------------------------------------------------------------
-
 
 # Target file name (without extension).
 TARGET = teensy2
-
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC =	$(TARGET).c \
@@ -55,14 +35,12 @@ MCU = atmega32u4        # Teensy 2.0
 #MCU = at90usb646       # Teensy++ 1.0
 #MCU = at90usb1286      # Teensy++ 2.0
 
-
 # Processor frequency.
 #   Normally the first thing your program should do is set the clock prescaler,
 #   so your program will run at the correct speed.  You should also set this
 #   variable to same clock speed.  The _delay_ms() macro uses this, and many
 #   examples use this variable to calculate timings.  Do not add a "UL" here.
 F_CPU = 16000000
-
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex

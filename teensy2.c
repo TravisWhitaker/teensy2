@@ -4,18 +4,18 @@
 
 void zero()
 {
-	PORTD |= (1<<0);
-	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop");
 	PORTD &= ~(1<<0);
-	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
+	PORTD &= ~(1<<0);
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 }
 
 void one()
 {
 	PORTD |= (1<<0);
-	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 	PORTD &= ~(1<<0);
-	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop");
+	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 }
 
 int main()

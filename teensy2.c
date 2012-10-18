@@ -4,21 +4,21 @@
 
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-#include <avr/delay.h>
+#include <avr/interrupt.h>
 
 void zero()
 {
-	PORTD &= ~(1<<0);
+	PORTD &= ~(1<<1);
 	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
-	PORTD |= (1<<0);
+	PORTD |= (1<<1);
 	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 }
 
 void one()
 {
-	PORTD &= ~(1<<0);
+	PORTD &= ~(1<<1);
 	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
-	PORTD |= (1<<0);
+	PORTD |= (1<<1);
 	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 }
 
@@ -28,18 +28,17 @@ int main()
 	CLKPR = 0x01; //8 Mhz, 8 cycles per microsecond
 	DDRD |= (1<<6); //D6 output (light)
 	PORTD |= (1<<6); //D6 high (light)
-	DDRD |= (1<<0); //D0 output (data out)
-	DDRD &= ~(1<<1); //D1 input (data in)
+	DDRD &= ~(1<<0); //D0 input (data in[interrupt])
+	DDRD |= (1<<1); //D1 output (data out)
+	PCICR |= (1<<PCIE0); //Enable the state change interrupt on pin D0)
 	asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 	while(1)
 	{
-		if(~(PIND & (1<<1)))
-		{
-			zero();zero();zero();zero();zero();zero();zero();zero();
-			zero();zero();zero();zero();zero();zero();zero();zero();
-			zero();zero();zero();zero();zero();zero();zero();zero();
-			zero();zero();zero();zero();zero();zero();zero();zero();
-		}
 	}
 	return 0;
+}
+
+ISR(PCINT0_vect)
+{
+	zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();zero();
 }
